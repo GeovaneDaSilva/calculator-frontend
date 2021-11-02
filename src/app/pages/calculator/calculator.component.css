@@ -1,0 +1,28 @@
+.bg-header {
+    height: 100px;
+    color: floralwhite;
+    background-color: #6348e9;
+}
+
+.title {
+    padding-top: 20px;
+}
+
+.padding {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.col {
+    padding-top: 15px;
+}
+
+.bg-right {
+    height: 420px;
+    background-color: aqua;
+
+}
+
+.p-3 { 
+    padding: spacer !important; 
+}
