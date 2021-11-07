@@ -1,46 +1,157 @@
 <nav class="navbar navbar-expand-lg bg-header">
-    <div class="container-fluid">
-      <a class="navbar-brand">
-        <img src="../../../assets/logo.png" class="img-responsive" alt="Image" width="200"></a>
-    </div>
-  </nav>
-<div class="container-fluid padding">
-    <div class="container bg-light" >
-        <div class="row">
-            <div class="col-md-4">
-                <form>
-                    <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
-                        <input placeholder="Select date" type="text" id="example" class="form-control">
-                        <label for="example">Try me...</label>
-                        <i class="fas fa-calendar input-prefix" tabindex=0></i>
-                      </div>
-                    <div class="form-row">
-                      <div class="col">
-                        <label class="form-label">Start Date</label>
-                        <input type="text" class="form-control" placeholder="City">
-                      </div>
-                      <div class="col">
-                        <label class="form-label">Installment Interval</label>
-                        <input type="text" class="form-control" placeholder="State">
-                      </div>
-                      <div class="col">
-                        <label class="form-label">Installment Amount</label>
-                        <input type="text" class="form-control" placeholder="Zip">
-                      </div>
-                      <div class="col">
-                        <label class="form-label">Simple Interest Rate</label>
-                        <input type="text" class="form-control" placeholder="Zip">
-                      </div>
-                      <div class="col">
-                        <a href="" class="btn btn-primary"> Calcular</a>
+  <div class="container-fluid">
+    <a class="navbar-brand">
+      <img src="../../../assets/logo.png" class="img-responsive" alt="Image" width="200"></a>
+  </div>
+</nav>
+<div class="container-fluid padding bg-main">
+  <div class="container" >
+      <div class="row">
+          <div class="col-md-4">
+              <form (ngSubmit)="calculator( f.value )" #f="ngForm">
+                  <div class="form-group">
+            
+                    <div class="col">
+                      <label class="form-label">Start Date</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="far fa-clock"></i></span>
+                        </div>
+                        <input type="date" ngModel name="date" #date="ngModel"
+                        [placeholder]="selectDate" required 
+                        class="form-control" aria-label="Amount (to the nearest dollar)">
+
+              
+                  </div>
+                          
+                    </div>
+                    
+                    <div class="col">
+                      <label class="form-label">Loan Amount Capital</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                        </div>
+                        <input type="number" ngModel name="capital" required
+                        class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                        </div>
                       </div>
                     </div>
-                  </form>
+
+                    <div class="col">
+                      <label class="form-label">Installment Interval</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                        </div>
+                        <select class="form-select" aria-label="Default select example">
+                          <option *ngFor="let interval of intervals"
+                          selected>{{ interval.label }}</option>
+    
+                        </select>
+                        <div class="input-group-append">
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="col">
+                      <label class="form-label">Installment Amount</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-hand-holding-usd"></i></span>
+                        </div>
+                        <input ngModel name="payment_amount"
+                        type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col">
+                      <label class="form-label">Simple Interest Rate</label>
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fas fa-percent"></i></span>
+                        </div>
+                        <input type="number" ngModel name="interest"
+                        type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                        <div class="input-group-append">
+                        </div>
+                      </div>
+                    </div>
+
+                   
+                      <button type="submit" class="btn btn-primary block text-uppercase" [disabled]="f.invalid">Calculator</button>
+                    
+                  </div>
+              </form>
+          </div>
+          <div class="col margin-top">
+
+            <div *ngIf="alert; else other_content">
+              <h4 class="text-danger">{{ alert }}</h4> <hr>
+              <p>Please select other date</p>
             </div>
 
-            <div class="col-md-8 bg-right">
+            <ng-template #other_content>
+              <div *ngIf="activated">
+
+                <div class="card text-white bg-dark mb-3" style="max-width: 100%;">
+                  <div class="card-header">Installment amount</div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ totalSelect | currency }}</h5>
+                  </div>
+                </div>
                 
-            </div>
-        </div>
+                <div class="card text-white bg-success mb-3" style="max-width: 100%;">
+                  <div class="card-header"> Quantity intallment</div>
+                  <div class="card-body">
+                    <h5 class="card-title"><i class="far fa-clock"> </i> {{ totalAmount }}</h5>
+                  </div>
+                </div>
+  
+                <div class="card text-white bg-secondary mb-3" style="max-width: 100%;">
+                  <div class="card-header">Total Amount</div>
+                  <div class="card-body">
+                    <h5 class="card-title">{{ result | currency }}</h5>
+                  </div>
+                </div>
+  
+              </div>
+
+            </ng-template>
+
+    
+          
+          </div>
+      </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+  <div class="container py-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Qty</th>
+          <th scope="col">Price</th>
+          <th scope="col">Interst</th>
+          <th scope="col">Date</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr >
+          <th scope="row">1</th>
+          <td>{{ totalSelect | currency }}</td>
+          <td> {{ interstSelect }} %</td>
+          <td>{{ selectDate }}</td>
+          <td>{{ payment_amountSelect | currency }}</td>
+        </tr>
+    
+      </tbody>
+    </table>
     </div>
 </div>
