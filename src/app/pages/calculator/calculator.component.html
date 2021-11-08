@@ -163,11 +163,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
+          <tr *ngFor="let showInstallment of showInstallments; let i = index">
+            <th scope="row"> {{ i + 1  }}</th>
             <td>{{ totalSelect | currency }}</td>
             <td> {{ interstSelect }} %</td>
-            <td class="text-success">{{ selectDate }}</td>
+            <td class="text-success">{{ showInstallment }}</td>
             <td>{{ payment_amountSelect | currency }}</td>
           </tr>
 
@@ -177,6 +177,3 @@
   </div>
 </ng-template>
 
-<div *ngFor="let showInstallments of showInstallments">
-  <p>44</p>
-</div>

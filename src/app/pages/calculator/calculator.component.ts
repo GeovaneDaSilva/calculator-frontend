@@ -35,7 +35,9 @@ export class CalculatorComponent implements OnInit {
   activated: boolean = false;
   show: boolean = false;
   selectInterval: any = this.intervals[0].value; // por defecto será daily
-  showInstallments: any[] = [];
+
+  showInstallments: any[] = []
+
   constructor(private _apiService: ApiService) {
     this.getHolidays();
     this.holidays;
@@ -47,8 +49,7 @@ export class CalculatorComponent implements OnInit {
   calculator(calculator: CalculatorModel) {
     const i = calculator.interest / 100;
 
-    const total =
-      (calculator.capital * calculator.interest) / 100 + calculator.capital;
+    const total = (calculator.capital * calculator.interest) / 100 + calculator.capital;
 
     this.total = total;
 
@@ -87,7 +88,7 @@ export class CalculatorComponent implements OnInit {
     for (let index = 0; index < this.totalAmount; index++) {
       let currentDay = moment(this.newDate).format('MM/DD/YYYY');
       let day: number = moment(this.newDate).day();
-      let nextDay;
+      let nextDay: any;
 
       // logic interval
 
@@ -136,7 +137,16 @@ export class CalculatorComponent implements OnInit {
         }
       }
       this.newDate = nextDay;
-      console.log(index + 1 + ' -- Payment date', nextDay);
+      // console.log(index + 1 + ' -- Payment date', nextDay);
+      
+      
+      let payments: any[] = Object.keys(nextDay).map(() => {
+        return nextDay
+      });
+      
+      let newArray = payments[0]
+      console.log('neww',this.showInstallments.push([newArray]));
+      
     }
   }
 
@@ -144,4 +154,12 @@ export class CalculatorComponent implements OnInit {
   setDate(date: any) {
     this.newDate = date;
   }
+
+  listPaymentsTable(nextDay: any){
+    Object.keys(nextDay).map(function() {
+      return nextDay
+    });
+  }
+
+  
 }
