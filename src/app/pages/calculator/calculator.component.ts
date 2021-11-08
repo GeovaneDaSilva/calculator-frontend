@@ -64,7 +64,6 @@ export class CalculatorComponent implements OnInit {
     this.payment_amountSelect = calculator.payment_amount;
     this.selectDate = calculator.date;
 
-    console.log('Holidays', this.holidays);
     for (let holiday of this.holidays) {
       if (holiday.date === this.selectDate) {
         this.alert = holiday.name;
@@ -135,6 +134,8 @@ export class CalculatorComponent implements OnInit {
         } else {
           nextDay = month;
         }
+
+        
       }
       this.newDate = nextDay;
       // console.log(index + 1 + ' -- Payment date', nextDay);
